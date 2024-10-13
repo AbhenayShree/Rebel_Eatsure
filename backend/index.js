@@ -16,7 +16,6 @@ app.use(bodyParser.json()); // Enable JSON body parsing
 // Register the Order Routes under '/api/orders'
 app.use('/api/orders', orderRoutes);
 
-
 // Test Route
 app.get('/', (req, res) => {
   res.send('Welcome to Group Order Management API!');

@@ -1,8 +1,7 @@
 // backend/db.js
 
 const { Sequelize } = require('sequelize');
-require('dotenv').config({ path: './backend/.env' }); // Adjust path if needed
-
+require('dotenv').config({ path: './backend/.env' }); // Load environment variables from .env file
 
 // Check if required environment variables are set
 const requiredEnvVars = ['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT'];
@@ -11,13 +10,15 @@ const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
 if (missingEnvVars.length > 0) {
   throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}. Please check your .env file.`);
 }
+
+// Log loaded environment variables (optional, for debugging purposes)
 console.log('Loaded environment variables:', {
   DB_NAME: process.env.DB_NAME,
   DB_USER: process.env.DB_USER,
   DB_PASSWORD: process.env.DB_PASSWORD,
   DB_HOST: process.env.DB_HOST,
   DB_PORT: process.env.DB_PORT,
-})
+});
 
 // Create a Sequelize instance with PostgreSQL database credentials
 const sequelize = new Sequelize(
@@ -46,4 +47,4 @@ const testConnection = async () => {
 // Call the test function
 testConnection();
 
-module.exports = sequelize;
+module.exports = sequelize; // Export the sequelize instance for use in other files
