@@ -1,21 +1,20 @@
-// backend/routes/orderRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/order'); // Import Order model
 
 // Create a new order
-router.post('/orders', async (req, res) => {
-  try {
-    const order = await Order.create(req.body);
-    res.status(201).json(order);
-  } catch (error) {
-    res.status(400).json({ message: 'Order creation failed', error: error.message });
-  }
-});
+router.post('/', async (req, res) => {
+    try {
+      const order = await Order.create(req.body);
+      res.status(201).json(order);
+    } catch (error) {
+      res.status(400).json({ message: 'Order creation failed', error: error.message });
+    }
+  });
+  
 
 // Get all orders
-router.get('/orders', async (req, res) => {
+router.get('/', async (req, res) => { 
   try {
     const orders = await Order.findAll();
     res.status(200).json(orders);
@@ -25,7 +24,7 @@ router.get('/orders', async (req, res) => {
 });
 
 // Get a single order by ID
-router.get('/orders/:id', async (req, res) => {
+router.get('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
@@ -39,7 +38,7 @@ router.get('/orders/:id', async (req, res) => {
 });
 
 // Update an order by ID
-router.put('/orders/:id', async (req, res) => {
+router.put('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
@@ -54,7 +53,7 @@ router.put('/orders/:id', async (req, res) => {
 });
 
 // Delete an order by ID
-router.delete('/orders/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
