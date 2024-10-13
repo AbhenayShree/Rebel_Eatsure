@@ -1,35 +1,38 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
+// Define the Order model class
 class Order extends Model {}
 
+// Initialize the Order model with attributes
 Order.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   order_name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   customer_name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   total_amount: {
     type: DataTypes.DECIMAL(10, 2),
-    allowNull: false
+    allowNull: false,
   },
-  created_at: {
+  createdAt: {  // Changed to camelCase for Sequelize consistency
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+    defaultValue: DataTypes.NOW,
+  },
 }, {
   sequelize,
-  modelName: 'orders', // This should match the table name
-  tableName: 'orders', // Explicitly specify the table name
-  timestamps: false // Set to true if you want Sequelize to manage createdAt and updatedAt fields
+  modelName: 'Order',  // Changed to singular
+  tableName: 'orders',  // Explicitly specify the table name
+  timestamps: true,     // Enable Sequelize-managed timestamps
 });
 
+// Export the Order model
 module.exports = Order;

@@ -4,14 +4,13 @@ const Order = require('../models/orders'); // Import Order model
 
 // Create a new order
 router.post('/', async (req, res) => {
-    try {
-      const order = await Order.create(req.body);
-      res.status(201).json(order);
-    } catch (error) {
-      res.status(400).json({ message: 'Order creation failed', error: error.message });
-    }
-  });
-  
+  try {
+    const order = await Order.create(req.body);
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(400).json({ message: 'Order creation failed', error: error.message });
+  }
+});
 
 // Get all orders
 router.get('/', async (req, res) => { 
@@ -24,7 +23,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a single order by ID
-router.get('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
+router.get('/:id', async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
@@ -38,7 +37,7 @@ router.get('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
 });
 
 // Update an order by ID
-router.put('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
+router.put('/:id', async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
@@ -53,12 +52,12 @@ router.put('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
 });
 
 // Delete an order by ID
-router.delete('/:id', async (req, res) => { // Changed '/orders/:id' to '/:id'
+router.delete('/:id', async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
     if (order) {
       await order.destroy();
-      res.status(200).json({ message: 'Order deleted successfully' });
+      res.status(204).send(); // 204 No Content response for successful deletion
     } else {
       res.status(404).json({ message: 'Order not found' });
     }
